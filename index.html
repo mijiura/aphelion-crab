@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SW2.5 収支履歴メーカー</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="background-elements">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <main class="container">
+    <header>
+      <h1>SW2.5 収支履歴メーカー</h1>
+      <p class="subtitle">ゆとしーと向けに、複数のアイテムの購入履歴をカンタン生成。</p>
+    </header>
+
+    <div class="app-layout">
+
+      <!-- Left Column: Input Form -->
+      <section class="panel input-section glass-panel">
+        <h2>アイテム追加</h2>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-target="preset-form">プリセットから選ぶ</button>
+          <button class="tab-btn" data-target="custom-form">手動入力</button>
+        </div>
+
+        <!-- Preset Item Form -->
+        <div id="preset-form" class="item-form active-form">
+          <div class="form-group">
+            <label for="preset-search">アイテム検索 (全カテゴリ)</label>
+            <input type="text" id="preset-search" placeholder="例: ポーション" autocomplete="off">
+          </div>
+
+          <div id="category-tabs" class="category-tabs">
+            <!-- JS will populate category tabs here -->
+          </div>
+
+          <div class="preset-grid-container">
+            <div id="preset-grid" class="preset-grid">
+              <!-- JS will populate item buttons here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Item Form -->
+        <form id="custom-form" class="item-form">
+          <div class="form-group">
+            <label for="custom-name">アイテム名</label>
+            <input type="text" id="custom-name" placeholder="例: オリジナル魔剣" required>
+          </div>
+          <div class="form-group">
+            <label for="custom-price">単価 (G)</label>
+            <input type="number" id="custom-price" placeholder="1000" min="0" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group qty-group">
+              <label for="custom-qty">個数</label>
+              <input type="number" id="custom-qty" value="1" min="1" required>
+            </div>
+            <button type="submit" class="primary-btn">リストに追加</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Right Column: List & Output -->
+      <section class="panel output-section">
+
+        <div class="glass-panel items-panel">
+          <h2>
+            追加済みアイテム
+            <span id="total-cost-display" class="total-badge">合計: 0 G</span>
+            <button id="clear-list-btn" class="icon-btn" title="全て削除">🗑️</button>
+          </h2>
+          <div class="items-list-container">
+            <ul id="items-list" class="items-list">
+              <!-- JS will populate list items here -->
+              <li class="empty-state">まだアイテムがありません</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass-panel code-panel">
+          <div class="panel-header">
+            <h2>出力結果</h2>
+            <button id="copy-btn" class="primary-btn sm-btn">
+              <span>📋</span> コピー
+            </button>
+          </div>
+          <textarea id="output-textarea" readonly placeholder="ここに出力テキストが生成されます。"></textarea>
+          <div id="copy-toast" class="toast">コピーしました！</div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
