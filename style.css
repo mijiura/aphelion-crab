@@ -55,7 +55,12 @@ body {
   line-height: 1.6;
 }
 
-/* Background Animated Blobs */
+/* ==========================================
+ * 背景の装飾：ふわふわ漂う光る球体（Blob）
+ * ==========================================
+ * .background-elements は、画面の一番奥（z-index: -1）に配置される透明な箱です。
+ * スクロールしても常に画面全体を覆うように `position: fixed` が指定されています。
+ */
 .background-elements {
   position: fixed;
   top: 0;
@@ -64,35 +69,58 @@ body {
   height: 100vh;
   z-index: -1;
   overflow: hidden;
+  /* 画面外にはみ出した光が見えないように切り取ります */
 }
 
+/* 
+ * .blob は、光る球体の基本スタイルです。
+ * 3つの球体すべてに共通する設定（ぼかし、半透明、アニメーションの呼び出し）をここに書いています。
+ */
 .blob {
   position: absolute;
   filter: blur(80px);
+  /* ★ここがポイント！ 80pxの強力なぼかしをかけることで、ただの丸い図形が「グラデーションの光」に変わります */
   opacity: 0.5;
+  /* 半透明にして背景に馴染ませます */
   border-radius: 50%;
+  /* 四角形を真ん丸にします */
+
+  /* floatというアニメーションを「20秒かけて実行し」「無限(infinite)に」「交互(alternate)に繰り返す」 */
   animation: float 20s infinite alternate ease-in-out;
 }
 
+/* 
+ * 1つ目の光（左上・青色）
+ */
 .blob-1 {
   width: 400px;
   height: 400px;
   background: var(--primary);
+  /* CSS変数で定義した青色 */
   top: -100px;
   left: -100px;
   animation-duration: 25s;
+  /* 基本は20秒ですが、これだけ「25秒」でゆっくり動くように上書きして、動きを不規則にしています */
 }
 
+/* 
+ * 2つ目の光（右下・紫色）
+ */
 .blob-2 {
   width: 500px;
   height: 500px;
   background: var(--secondary);
+  /* CSS変数で定義した紫色 */
   bottom: -200px;
   right: -100px;
   animation-duration: 22s;
   animation-delay: -5s;
+  /* -5秒遅らせてスタート＝すでに5秒経過した状態からアニメーションが始まるため、動きのタイミングが他とズレます */
 }
 
+/* 
+ * 3つ目の光（中央やや右・緑色）
+ */
 .blob-3 {
   width: 300px;
   height: 300px;
@@ -103,12 +131,26 @@ body {
   animation-delay: -10s;
 }
 
+/* ==========================================
+ * 背景のふわふわアニメーションの動きを定義
+ * ==========================================
+ * @keyframes は、パラパラ漫画のようにアニメーションの「始まり」から「終わり」までの動きのチェックポイント（キーフレーム）を作る機能です。
+ * ここでは 'float' という名前の動きを定義しています。
+ */
 @keyframes float {
+
+  /* 0% はアニメーションの開始地点です */
   0% {
+    /* transform: 要素を移動させたり変形させたりします */
+    /* translate(0, 0): 元の位置から動かさない */
+    /* scale(1): 元の大きさ(100%)のまま */
     transform: translate(0, 0) scale(1);
   }
 
+  /* 100% はアニメーションの終了地点です */
   100% {
+    /* translate(50px, 50px): 右と下にそれぞれ50ピクセル移動する */
+    /* scale(1.1): 元の大きさより10%だけ拡大する */
     transform: translate(50px, 50px) scale(1.1);
   }
 }
@@ -140,27 +182,44 @@ h1 {
   font-size: 1.2rem;
 }
 
-/* Layout */
+/* ==========================================
+ * 画面全体の主要なレイアウト (CSS Grid)
+ * ==========================================
+ * display: grid; は、画面を「格子状（グリッド）」に分割して要素を配置する強力な機能です。
+ * grid-template-columns: 1.2fr 1fr; は、「左側（入力パネル）を1.2の割合」「右側（出力パネル）を1の割合」という2列のレイアウトを作っています。
+ */
 .app-layout {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 3rem;
+  gap: 3rem; /* 左右の列の間のすき間 */
 }
 
+/* 
+ * @media は「メディアクエリ」と呼ばれ、特定の画面サイズになった時だけ適用されるスタイルを書きます。
+ * ここでは「画面幅が1024px以下になったら」、grid-template-columns: 1fr;（1列だけ表示）に切り替え、スマホやタブレットで左右のパネルが縦並びになるようにしています。
+ */
 @media (max-width: 1024px) {
   .app-layout {
     grid-template-columns: 1fr;
   }
 }
 
-/* Glass Panels */
+/* ==========================================
+ * グラスモーフィズム（すりガラス風パネル）のベース
+ * ==========================================
+ */
 .glass-panel {
-  background: var(--glass-bg);
+  background: var(--glass-bg); /* 半透明の背景色 */
+
+  /* backdrop-filter: blur() は、この要素の「後ろにあるもの（このサイトでは丸い光）」をすりガラス越しに見ているようにぼかす魔法のプロパティです */
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px); /* Safariなど一部ブラウザ用の記述 */
+
   border: 1px solid var(--glass-border);
   border-radius: var(--border-radius);
   padding: 2rem;
+
+  /* box-shadow: 右ズレ量 下ズレ量 ぼかし具合 広がり具合 色; （要素の下に影を落として立体感を出します） */
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -197,6 +256,7 @@ h2 {
   color: var(--text-main);
 }
 
+/* [JS連携] タブがクリックされた時、JSがこの '.active' クラスを付け外しして「現在選択中」の見た目に変更します */
 .tab-btn.active {
   background: rgba(255, 255, 255, 0.1);
   color: var(--text-main);
@@ -204,11 +264,13 @@ h2 {
 }
 
 /* Forms */
+/* [JS連携] JSが操作するまでは非表示(display: none)にしておきます */
 .item-form {
   display: none;
   animation: fadeIn 0.3s ease;
 }
 
+/* [JS連携] JSがこのクラスをつけることで、対象のフォームが表示(display: block)されます */
 .item-form.active-form {
   display: block;
 }
@@ -231,10 +293,13 @@ h2 {
   flex-direction: column;
 }
 
+/* display: flex; は要素を横並び（または縦並び）に柔軟に配置する時によく使います。
+ * ここでは手動入力欄と「追加ボタン」を横一列に並べています。
+ */
 .form-row {
   display: flex;
-  gap: 1rem;
-  align-items: flex-end;
+  gap: 1rem;            /* 要素どうしのすき間 */
+  align-items: flex-end; /* 要素を下揃えにする（ラベルの分だけ上に押し上げられるのを防ぐため） */
   margin-top: 1.5rem;
 }
 
@@ -300,6 +365,7 @@ select:focus {
   color: var(--text-main);
 }
 
+/* [JS連携] 選択中のカテゴリタブもJSによって '.active' が付けられ、このスタイルが適用されます */
 .category-tab-btn.active {
   background: var(--primary);
   color: white;
@@ -452,21 +518,27 @@ select:focus {
   padding-right: 0.5rem;
 }
 
-/* Custom Scrollbar */
+/* ==========================================
+ * スクロールバーのカスタマイズ
+ * ==========================================
+ * `::-webkit-scrollbar...` と始まるものは「疑似要素」と呼ばれ、スクロールバーの部品ごとの見た目を変えられます。
+ * ※Chrome, Safari, Edgeなどで有効です。
+ */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 6px; /* スクロールバー全体の太さ */
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1); /* スクロールバーが通るレールの色 */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2); /* スクロールバーのつまみ（動かす部分）の色 */
   border-radius: 10px;
 }
 
+/* つまみにマウスが乗った時(:hover)は少しだけ明るくします */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
@@ -566,6 +638,7 @@ textarea:focus {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* [JS連携] コピーボタンが押された時、JSがこの '.show' クラスを一時的に付けて通知を表示させ、2秒後に外して見えなくします */
 .toast.show {
   opacity: 1;
   transform: translateX(50%) translateY(0);

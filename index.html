@@ -21,7 +21,7 @@
   <main class="container">
     <header>
       <h1>SW2.5 収支履歴メーカー</h1>
-      <p class="subtitle">ゆとしーと向けに、複数のアイテムの購入履歴をカンタン生成。</p>
+      <p class="subtitle">ゆとしーと向けに、複数のアイテムの購入履歴をカンタン生成</p>
     </header>
 
     <div class="app-layout">
@@ -31,14 +31,17 @@
         <h2>アイテム追加</h2>
 
         <div class="tabs">
+          <!-- [JS連携] data-target の値 ('preset-form' など) をJSが読み取り、クリックした時に対応するIDのフォームを表示させます -->
           <button class="tab-btn active" data-target="preset-form">プリセットから選ぶ</button>
           <button class="tab-btn" data-target="custom-form">手動入力</button>
         </div>
 
         <!-- Preset Item Form -->
+        <!-- [JS連携] JS側で 'active-form' というクラスを付け外しすることで、表示/非表示を切り替えます -->
         <div id="preset-form" class="item-form active-form">
           <div class="form-group">
             <label for="preset-search">アイテム検索 (全カテゴリ)</label>
+            <!-- [JS連携] JSがこの入力欄(inputイベント)を監視し、文字が打たれるたびにアイテムを絞り込みます -->
             <input type="text" id="preset-search" placeholder="例: ポーション" autocomplete="off">
           </div>
 
@@ -48,7 +51,7 @@
 
           <div class="preset-grid-container">
             <div id="preset-grid" class="preset-grid">
-              <!-- JS will populate item buttons here -->
+              <!-- [JS連携] JSがJavaScript内のアイテムデータから動的に生成した <button> タグ群がここに挿入されます -->
             </div>
           </div>
         </div>
@@ -66,6 +69,7 @@
           <div class="form-row">
             <div class="form-group qty-group">
               <label for="custom-qty">個数</label>
+              <!-- [JS連携] required属性があるため、空だと通常はブラウザが警告を出します。送信処理自体はJSの submit イベントで乗っ取られています -->
               <input type="number" id="custom-qty" value="1" min="1" required>
             </div>
             <button type="submit" class="primary-btn">リストに追加</button>
@@ -84,7 +88,7 @@
           </h2>
           <div class="items-list-container">
             <ul id="items-list" class="items-list">
-              <!-- JS will populate list items here -->
+              <!-- [JS連携] カートに追加されたアイテム情報をもとに、JSが <li> タグを作ってここに挿入します -->
               <li class="empty-state">まだアイテムがありません</li>
             </ul>
           </div>
@@ -105,6 +109,7 @@
     </div>
   </main>
 
+  <!-- [JS連携] ここで外部のJavaScriptファイルを読み込みます。HTMLの末尾にあるため、画面の要素が全て揃ってからJSが実行されます -->
   <script src="script.js"></script>
 </body>
 
