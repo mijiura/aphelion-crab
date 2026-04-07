@@ -6,9 +6,15 @@
 const swItems = [
     // --- 冒険者ツール類 ---
     { category: '一般装備品', name: '冒険者セット', price: 100 },
-    { category: '一般装備品', name: '保存食(1週間分)', price: 50 },
+    { category: '一般装備品', name: '袋', price: 8 },
+    { category: '一般装備品', name: 'ベルトポーチ', price: 15 },
     { category: '一般装備品', name: '水袋', price: 20 },
-    { category: '一般装備品', name: '毛布', price: 50 },
+    { category: '一般装備品', name: '背負い袋', price: 50 },
+
+    { category: '一般装備品', name: '食器セット', price: 12 },
+    { category: '一般装備品', name: '毛布', price: 40 },
+    { category: '一般装備品', name: '調理道具', price: 50 },
+    { category: '一般装備品', name: 'テント', price: 250 },
 
     { category: '一般装備品', name: 'たいまつ(6本)', price: 5 },
     { category: '一般装備品', name: '火口箱', price: 20 },
@@ -17,9 +23,9 @@ const swItems = [
     { category: '一般装備品', name: 'ランタン', price: 40 },
 
     { category: '一般装備品', name: 'ロープ(10m)', price: 10 },
+    { category: '一般装備品', name: '小型ハンマー', price: 10 },
+    { category: '一般装備品', name: 'フック', price: 10 },
     { category: '一般装備品', name: 'くさび(10本)', price: 20 },
-    { category: '一般装備品', name: 'バランスのよい小型ハンマー', price: 10 },
-    { category: '一般装備品', name: 'くさび', price: 20 },
     { category: '一般装備品', name: '小型ナイフ', price: 20 },
     { category: '一般装備品', name: '手鏡', price: 50 },
 
@@ -32,6 +38,17 @@ const swItems = [
     { category: '一般装備品', name: '荷馬', price: 1500 },
     { category: '一般装備品', name: 'ラクダ', price: 2000 },
 
+    { category: '一般装備品', name: '自宅住まいで自炊', price: 10 },
+    { category: '一般装備品', name: '素泊まり(1日)', price: 15 },
+    { category: '一般装備品', name: '素泊まり(1週間)', price: 150 },
+    { category: '一般装備品', name: 'エール', price: 50 },
+    { category: '一般装備品', name: 'ワイン', price: 50 },
+    { category: '一般装備品', name: '蒸留酒', price: 50 },
+    { category: '一般装備品', name: '食事(1食分)', price: 3 },
+    { category: '一般装備品', name: '保存食(1日分)', price: 10 },
+    { category: '一般装備品', name: '保存食(1週間分)', price: 50 },
+    { category: '一般装備品', name: '栄養カプセル', price: 100 },
+
     { category: '一般装備品', name: '羽根ペン', price: 2 },
     { category: '一般装備品', name: 'インク', price: 40 },
     { category: '一般装備品', name: '絵筆', price: 5 },
@@ -42,9 +59,6 @@ const swItems = [
     { category: '一般装備品', name: '虫眼鏡', price: 100 },
     { category: '一般装備品', name: 'ティーセット', price: 100 },
     { category: '一般装備品', name: '化粧品セット', price: 100 },
-
-    { category: '一般装備品', name: 'テント(4人用)', price: 250 },
-    { category: '一般装備品', name: 'テント(6人用)', price: 350 },
 
     // --- 冒険道具類(消耗品) ---
     { category: '冒険道具', name: '信号手旗セット', price: 50 },
@@ -139,8 +153,51 @@ const swItems = [
     { category: '薬品', name: '毒消し草', price: 50 },
 
     // --- 武器・防具(基本) ---
+    { category: '武具', name: 'ナイフ', price: 30 },
+    { category: '武具', name: 'スティレット', price: 40 },
     { category: '武具', name: 'ダガー', price: 50 },
-    { category: '武具', name: 'ショートソード', price: 100 },
+    { category: '武具', name: 'ククリ', price: 60 },
+    { category: '武具', name: 'ショートソード', price: 80 },
+    { category: '武具', name: 'エペ', price: 90 },
+    { category: '武具', name: 'カッツバルゲル', price: 100 },
+    { category: '武具', name: 'レイピア', price: 110 },
+    { category: '武具', name: 'サーベル', price: 190 },
+    { category: '武具', name: 'エストック', price: 370 },
+    { category: '武具', name: 'ロングソード', price: 440 },
+    { category: '武具', name: 'ブロードソード', price: 340 },
+    { category: '武具', name: 'バスタードソード', price: 560 },
+    { category: '武具', name: 'ファルシオン', price: 790 },
+    { category: '武具', name: 'ツーハンドソード', price: 860 },
+    { category: '武具', name: 'シャムシール', price: 950 },
+    { category: '武具', name: 'グレートソード', price: 1020 },
+    { category: '武具', name: 'ウィークネスピラー', price: 7660 },
+    { category: '武具', name: '狂戦士の剣', price: 13000 },
+
+    { category: '武具', name: 'ファストスパイク', price: 820 },
+    { category: '武具', name: 'マンゴーシュ', price: 620 },
+    { category: '武具', name: 'フリッサ', price: 880 },
+    { category: '武具', name: 'スキアヴォーナ', price: 990 },
+    { category: '武具', name: 'ディフェンダー', price: 1770 },
+    { category: '武具', name: 'タルワール', price: 1210 },
+    { category: '武具', name: 'スティールブレイド', price: 1450 },
+    { category: '武具', name: 'フランベルジュ', price: 1580 },
+    { category: '武具', name: 'ドラゴンスレイヤー', price: 2760 },
+    { category: '武具', name: 'バルザーの魔封剣', price: 16000 },
+    { category: '武具', name: 'デストロイヤー', price: 15000 },
+
+    { category: '武具', name: 'ピアシング', price: 2150 },
+    { category: '武具', name: 'エクセレントレイピア', price: 4580 },
+    { category: '武具', name: 'ミスリルソード', price: 7500 },
+    { category: '武具', name: 'スラッシャー', price: 5750 },
+    { category: '武具', name: 'クレイモア', price: 8000 },
+    { category: '武具', name: 'センチネル', price: 14000 },
+    { category: '武具', name: '首切り刀', price: 30000 },
+    { category: '武具', name: 'エンジェルフェザー', price: 40000 },
+    { category: '武具', name: 'ムーンピラー', price: 48000 },
+    { category: '武具', name: 'ハイペリオン', price: 57000 },
+    { category: '武具', name: 'ガイスター', price: 83000 },
+
+
     { category: '武具', name: 'ブロードソード', price: 200 },
     { category: '武具', name: 'メイス', price: 130 },
     { category: '武具', name: 'スピア', price: 150 },
